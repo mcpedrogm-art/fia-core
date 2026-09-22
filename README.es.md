@@ -63,7 +63,10 @@ fia init
 
 Con un entorno por proyecto, ejecuta `.venv\Scripts\fia` (Windows) o
 `.venv/bin/fia` (macOS/Linux) en lugar de `fia`, o activa el entorno primero;
-los ejemplos siguientes usan `fia` por brevedad.
+los ejemplos siguientes usan `fia` por brevedad. `fia test` ejecuta su comando
+con el `python` del PATH, así que si no activas el entorno, declara el comando
+de test con el intérprete del entorno (por ejemplo
+`.venv\Scripts\python -m unittest`).
 
 Crea `PROJECT.md`, `TASK.md` y `.fia/`. Nunca sobrescribe archivos existentes.
 `fia init` pregunta qué módulos opcionales quieres (Enter = solo Core).

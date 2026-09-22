@@ -63,7 +63,10 @@ fia init
 
 With a per-project environment, run `.venv\Scripts\fia` (Windows) or
 `.venv/bin/fia` (macOS/Linux) instead of `fia`, or activate the environment
-first; the examples below use `fia` for brevity.
+first; the examples below use `fia` for brevity. `fia test` runs its command
+with the `python` on PATH, so if you do not activate the environment, declare
+the test command with the environment's interpreter (for example
+`.venv\Scripts\python -m unittest`).
 
 This creates `PROJECT.md`, `TASK.md` and `.fia/`. Existing files are never
 overwritten. `fia init` asks which optional modules you want (press Enter for
