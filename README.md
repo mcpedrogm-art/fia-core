@@ -1,5 +1,10 @@
 # FIA Core
 
+[![CI](https://github.com/mcpedrogm-art/fia-core/actions/workflows/ci.yml/badge.svg)](https://github.com/mcpedrogm-art/fia-core/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/fia-core-full)](https://pypi.org/project/fia-core-full/)
+[![Python versions](https://img.shields.io/pypi/pyversions/fia-core-full)](https://pypi.org/project/fia-core-full/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/mcpedrogm-art/fia-core/blob/main/LICENSE)
+
 **Minimal, local verification for agent work.**
 
 `PROJECT → (SPEC) → TASK → TEST → VERIFY → STATUS`
@@ -9,7 +14,9 @@ makes a small set of work conditions mechanically checkable: a task marked
 `done` must have a passing test, run with the exact command the task declares,
 against the exact current contents of the task file.
 
-**[Español](README.es.md)** · [Architecture](docs/ARCHITECTURE.md) · [Changelog](CHANGELOG.md)
+**[Español](https://github.com/mcpedrogm-art/fia-core/blob/main/README.es.md)** ·
+[Architecture](https://github.com/mcpedrogm-art/fia-core/blob/main/docs/ARCHITECTURE.md) ·
+[Changelog](https://github.com/mcpedrogm-art/fia-core/blob/main/CHANGELOG.md)
 
 ## Install
 
@@ -121,20 +128,34 @@ fia status
 | `fia ui setup\|status` | UI/UX pack (opt-in download, SHA-256 verified) |
 | `fia assets fetch\|manifest` | Verified asset packs |
 
-## Optional modules
+## Core and optional modules
 
-Thirteen capability packs, off by default. Enabling one copies its docs to
-`docs/fia/<name>/` and never changes what `fia verify` checks. The UI/UX pack is
-intentionally complete (Design DNA, four divergent directions, section recipes,
-motion, accessibility, assets workflow); `ui` and `assets` also expose explicit
-SHA-256-verified download commands.
+The enforcement core is about 600 lines of dependency-free Python plus 30
+tests; it is the only thing `fia verify` runs.
+
+Thirteen capability packs ship alongside it, off by default. Enabling one copies
+its docs to `docs/fia/<name>/` and never changes what `fia verify` checks. The
+UI/UX pack is intentionally complete (Design DNA, four divergent directions,
+section recipes, motion, accessibility, assets workflow). `ui` and `assets` are
+the only packs with code (~200 lines): explicit, opt-in, SHA-256-verified
+download commands.
+
+## Trust and provenance
+
+- The PyPI distribution is `fia-core-full` (the bare `fia-core` name is not
+  available on PyPI); it installs the `fia` command and the `fia_core` package.
+- Releases are published from this repository with PyPI trusted publishing
+  (OIDC): only `.github/workflows/publish.yml` in `mcpedrogm-art/fia-core` can
+  upload to <https://pypi.org/project/fia-core-full/>. No API token is stored.
+- Every release is built by GitHub Actions from a tagged commit, and CI runs the
+  full test suite on Python 3.9, 3.11 and 3.13.
 
 ## Docs
 
-- [Architecture](docs/ARCHITECTURE.md)
-- [Audit of the extraction](docs/AUDIT.md)
-- [Changelog](CHANGELOG.md)
-- [Publishing](docs/PUBLISHING.md)
+- [Architecture](https://github.com/mcpedrogm-art/fia-core/blob/main/docs/ARCHITECTURE.md)
+- [Audit of the extraction](https://github.com/mcpedrogm-art/fia-core/blob/main/docs/AUDIT.md)
+- [Changelog](https://github.com/mcpedrogm-art/fia-core/blob/main/CHANGELOG.md)
+- [Publishing](https://github.com/mcpedrogm-art/fia-core/blob/main/docs/PUBLISHING.md)
 
 ## License
 
