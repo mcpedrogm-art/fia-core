@@ -18,22 +18,41 @@ against the exact current contents of the task file.
 [Architecture](https://github.com/mcpedrogm-art/fia-core/blob/main/docs/ARCHITECTURE.md) ·
 [Changelog](https://github.com/mcpedrogm-art/fia-core/blob/main/CHANGELOG.md)
 
-## Install
+## Install (per project, nothing global)
+
+FIA Core has no dependencies and installs inside the project's own virtual
+environment. Nothing is added to your global Python, to PATH, or to other
+projects.
+
+Windows:
 
 ```bash
-pip install fia-core-full
+cd my-project
+python -m venv .venv
+.venv\Scripts\pip install fia-core-full
 ```
 
-The PyPI distribution is `fia-core-full`; it installs the `fia` command and the
-`fia_core` Python package. Python 3.8+ · no dependencies.
+macOS / Linux:
 
-From source instead:
+```bash
+cd my-project
+python -m venv .venv
+.venv/bin/pip install fia-core-full
+```
+
+Add `.venv/` to the project's `.gitignore`. To uninstall, delete `.venv/`; the
+project files stay.
+
+<details>
+<summary>From source instead</summary>
 
 ```bash
 git clone https://github.com/mcpedrogm-art/fia-core
-cd fia-core
-pip install .
+cd my-project
+python -m venv .venv
+.venv\Scripts\pip install ../fia-core     # macOS / Linux: .venv/bin/pip install ../fia-core
 ```
+</details>
 
 ## Start a project
 
@@ -41,6 +60,10 @@ pip install .
 cd my-project
 fia init
 ```
+
+With a per-project environment, run `.venv\Scripts\fia` (Windows) or
+`.venv/bin/fia` (macOS/Linux) instead of `fia`, or activate the environment
+first; the examples below use `fia` for brevity.
 
 This creates `PROJECT.md`, `TASK.md` and `.fia/`. Existing files are never
 overwritten. `fia init` asks which optional modules you want (press Enter for
@@ -142,6 +165,9 @@ download commands.
 
 ## Trust and provenance
 
+- The package has no dependencies: installing it never pulls or upgrades other
+  packages, and it is meant to live in each project's own `.venv`, so it cannot
+  interfere with your global Python or with other projects.
 - The PyPI distribution is `fia-core-full` (the bare `fia-core` name is not
   available on PyPI); it installs the `fia` command and the `fia_core` package.
 - Releases are published from this repository with PyPI trusted publishing

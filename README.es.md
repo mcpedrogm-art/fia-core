@@ -18,22 +18,41 @@ que declara la tarea, contra el contenido actual del archivo de tarea.
 [Arquitectura](https://github.com/mcpedrogm-art/fia-core/blob/main/docs/ARCHITECTURE.md) ·
 [Changelog](https://github.com/mcpedrogm-art/fia-core/blob/main/CHANGELOG.md)
 
-## Instalación
+## Instalación (por proyecto, nada global)
+
+FIA Core no tiene dependencias y se instala dentro del entorno virtual del
+propio proyecto. No añade nada a tu Python global, al PATH ni a otros
+proyectos.
+
+Windows:
 
 ```bash
-pip install fia-core-full
+cd mi-proyecto
+python -m venv .venv
+.venv\Scripts\pip install fia-core-full
 ```
 
-La distribución en PyPI se llama `fia-core-full`; instala el comando `fia` y el
-paquete Python `fia_core`. Python 3.8+ · sin dependencias.
+macOS / Linux:
 
-Desde el código fuente:
+```bash
+cd mi-proyecto
+python -m venv .venv
+.venv/bin/pip install fia-core-full
+```
+
+Añade `.venv/` al `.gitignore` del proyecto. Para desinstalarlo, borra `.venv/`;
+los archivos del proyecto se quedan.
+
+<details>
+<summary>Desde el código fuente</summary>
 
 ```bash
 git clone https://github.com/mcpedrogm-art/fia-core
-cd fia-core
-pip install .
+cd mi-proyecto
+python -m venv .venv
+.venv\Scripts\pip install ../fia-core     # macOS / Linux: .venv/bin/pip install ../fia-core
 ```
+</details>
 
 ## Iniciar un proyecto
 
@@ -41,6 +60,10 @@ pip install .
 cd mi-proyecto
 fia init
 ```
+
+Con un entorno por proyecto, ejecuta `.venv\Scripts\fia` (Windows) o
+`.venv/bin/fia` (macOS/Linux) en lugar de `fia`, o activa el entorno primero;
+los ejemplos siguientes usan `fia` por brevedad.
 
 Crea `PROJECT.md`, `TASK.md` y `.fia/`. Nunca sobrescribe archivos existentes.
 `fia init` pregunta qué módulos opcionales quieres (Enter = solo Core).
@@ -142,6 +165,9 @@ explícitos, opt-in y verificados por SHA-256.
 
 ## Confianza y procedencia
 
+- El paquete no tiene dependencias: instalarlo nunca arrastra ni actualiza otros
+  paquetes, y está pensado para vivir en el `.venv` de cada proyecto, así que no
+  puede interferir con tu Python global ni con otros proyectos.
 - La distribución en PyPI es `fia-core-full` (el nombre `fia-core` no está
   disponible en PyPI); instala el comando `fia` y el paquete `fia_core`.
 - Las releases se publican desde este repositorio con trusted publishing de PyPI
