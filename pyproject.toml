@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fia-core"
+version = "0.2.0"
+description = "Minimal, local verification core for agent work"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+dependencies = []
+keywords = ["ai-agents", "verification", "testing", "harness"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Testing",
+]
+
+[project.urls]
+Homepage = "https://github.com/mcpedrogm-art/fia-core"
+Repository = "https://github.com/mcpedrogm-art/fia-core"
+Changelog = "https://github.com/mcpedrogm-art/fia-core/blob/main/CHANGELOG.md"
+
+[project.scripts]
+fia = "fia_core.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["fia_core*"]
+
+[tool.setuptools.package-data]
+"fia_core" = ["modules/**/*"]
