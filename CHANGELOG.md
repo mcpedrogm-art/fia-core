@@ -16,6 +16,8 @@ PROJECT/TASK/TEST/VERIFY model and its gates are unchanged.
   FIA Harness `core/ui.py`. Nothing is downloaded unless the command is run.
 - **Feature:** `fia init --assets <url|manifiesto>` creates the project files
   and then fetches the asset pack.
+- **Packaging:** the PyPI distribution is named `fia-core-full` (the import
+  package remains `fia_core` and the command remains `fia`).
 - **Docs truth fix:** the `assets` module README claimed SHA-256 checking with
   no mechanism behind it; the commands above now provide it.
 - Docs: `UI_UX_EXCLUSIVA.md` §8 references the real commands again; the UI pack

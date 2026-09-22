@@ -14,10 +14,11 @@ que declara la tarea, contra el contenido actual del archivo de tarea.
 ## Instalación
 
 ```bash
-pip install fia-core
+pip install fia-core-full
 ```
 
-Python 3.8+ · sin dependencias.
+La distribución en PyPI se llama `fia-core-full`; instala el comando `fia` y el
+paquete Python `fia_core`. Python 3.8+ · sin dependencias.
 
 Desde el código fuente:
 

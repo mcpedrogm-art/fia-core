@@ -14,10 +14,11 @@ against the exact current contents of the task file.
 ## Install
 
 ```bash
-pip install fia-core
+pip install fia-core-full
 ```
 
-Python 3.8+ · no dependencies.
+The PyPI distribution is `fia-core-full`; it installs the `fia` command and the
+`fia_core` Python package. Python 3.8+ · no dependencies.
 
 From source instead:
 

@@ -11,11 +11,14 @@ One-time setup (PyPI side, by a maintainer):
 1. Sign in at <https://pypi.org>.
 2. Go to **Publishing → Add a pending publisher** (the project does not exist
    yet) and fill in:
-   - PyPI project name: `fia-core`
+   - PyPI project name: `fia-core-full`
    - Owner: `mcpedrogm-art`
    - Repository name: `fia-core`
    - Workflow name: `publish.yml`
    - Environment name: `pypi`
+
+The PyPI distribution is named `fia-core-full`; the import package (`fia_core`)
+and the command (`fia`) do not change.
 
 Then, for every release:
 
