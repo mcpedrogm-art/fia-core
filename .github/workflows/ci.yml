@@ -20,3 +20,36 @@ jobs:
         run: python -m pip install .
       - name: Test
         run: python -m unittest discover -s tests -v
+
+  setup-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run setup.ps1
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path demo | Out-Null
+          ./setup.ps1 -Dir demo -Modules security
+          foreach ($f in "PROJECT.md", "TASK.md", ".fia/modules.json", ".venv/Scripts/fia.exe", ".gitignore") {
+            if (-not (Test-Path "demo/$f")) { throw "falta demo/$f" }
+          }
+          demo/.venv/Scripts/fia.exe status -d demo
+
+  setup-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run setup.sh
+        run: |
+          mkdir demo
+          ./setup.sh --dir demo --modules security
+          for f in PROJECT.md TASK.md .fia/modules.json .venv/bin/fia .gitignore; do
+            test -e "demo/$f" || { echo "falta demo/$f"; exit 1; }
+          done
+          demo/.venv/bin/fia status -d demo

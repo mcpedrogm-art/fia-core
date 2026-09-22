@@ -18,11 +18,29 @@ against the exact current contents of the task file.
 [Architecture](https://github.com/mcpedrogm-art/fia-core/blob/main/docs/ARCHITECTURE.md) ·
 [Changelog](https://github.com/mcpedrogm-art/fia-core/blob/main/CHANGELOG.md)
 
-## Install (per project, nothing global)
+## Install (one command, per project)
 
-FIA Core has no dependencies and installs inside the project's own virtual
-environment. Nothing is added to your global Python, to PATH, or to other
-projects.
+Inside your project folder. Windows (PowerShell):
+
+```powershell
+irm https://raw.githubusercontent.com/mcpedrogm-art/fia-core/main/setup.ps1 | iex
+```
+
+macOS / Linux:
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/mcpedrogm-art/fia-core/main/setup.sh)"
+```
+
+The script creates `.venv/`, installs `fia-core-full` inside it, adds `.venv/`
+to `.gitignore` and runs `fia init`. Re-running it is safe. Nothing is added to
+your global Python, to PATH, or to other projects.
+
+Optional modules without the menu: `.\setup.ps1 -Modules ui,security` or
+`./setup.sh --modules ui,security`.
+
+<details>
+<summary>Manual steps (same result)</summary>
 
 Windows:
 
@@ -30,6 +48,7 @@ Windows:
 cd my-project
 python -m venv .venv
 .venv\Scripts\pip install fia-core-full
+.venv\Scripts\fia init
 ```
 
 macOS / Linux:
@@ -38,13 +57,11 @@ macOS / Linux:
 cd my-project
 python -m venv .venv
 .venv/bin/pip install fia-core-full
+.venv/bin/fia init
 ```
 
 Add `.venv/` to the project's `.gitignore`. To uninstall, delete `.venv/`; the
-project files stay.
-
-<details>
-<summary>From source instead</summary>
+project files stay. From source instead:
 
 ```bash
 git clone https://github.com/mcpedrogm-art/fia-core
@@ -55,6 +72,12 @@ python -m venv .venv
 </details>
 
 ## Start a project
+
+The install script already runs `fia init`, which creates `PROJECT.md`,
+`TASK.md` and `.fia/`. Existing files are never overwritten, and `fia init` asks
+which optional modules you want (press Enter for Core only).
+
+To run it by hand:
 
 ```bash
 cd my-project
@@ -67,10 +90,6 @@ first; the examples below use `fia` for brevity. `fia test` runs its command
 with the `python` on PATH, so if you do not activate the environment, declare
 the test command with the environment's interpreter (for example
 `.venv\Scripts\python -m unittest`).
-
-This creates `PROJECT.md`, `TASK.md` and `.fia/`. Existing files are never
-overwritten. `fia init` asks which optional modules you want (press Enter for
-Core only).
 
 In scripts:
 
