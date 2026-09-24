@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.3.0
+
+Added the `typesafe` capability pack so the harness can understand and evaluate
+work that uses TypeSafe/Jev. The PROJECT/TASK/TEST/VERIFY model and its gates are
+unchanged.
+
+- **Module:** `typesafe` (label TypeSafe/Jev, full) registers in `modules.py` and
+  installs a reference plus spec/rule docs to `docs/fia/typesafe/`
+  (`README.md`, `JEV_REFERENCE.md`, `JEV_SPEC.md`).
+- **Feature:** `fia typesafe review [-d DIR] [--spec FILE] [--live] [--json]`
+  statically evaluates a machine-readable Jev spec (`.fia/typesafe.json`,
+  `JEV.json`, `typesafe.json`) and scans the sources: question types, atomicity,
+  Choice/Score/Noul criteria bounds, catch-all options, descriptive levels,
+  confidence usage and hardcoded API keys. With `--live` it asks Jev itself to
+  meta-evaluate the design (atomicity, independence, distinctness, context,
+  planned uncertainty) — dogfooding. Errors exit `1`.
+- **Feature:** `fia typesafe eval --spec FILE [--state FILE] [--model NAME]
+  [--json]` runs the spec's typed questions against the System One endpoint and
+  prints the answers and token usage.
+- **Tooling:** `fia_core/typesafe.py` is stdlib-only (`urllib`), opt-in, retries
+  `429`/`529` with backoff, reads UTF-8 BOM specs, and needs `TYPESAFE_API_KEY`
+  for the network commands. It never changes what `fia verify` checks.
+- Tests: 32 new tests (`tests/test_typesafe.py`), including mocked API calls,
+  spec validation, source scanning, and the CLI/module wiring.
+
 ## 0.2.0
 
 Restored the UI/UX asset tooling that 0.1.x left as documentation only. The

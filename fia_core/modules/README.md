@@ -12,9 +12,10 @@ fia module info ui
 fia module disable security
 ```
 
-Most modules are intentionally light. UI is the exception: it keeps the complete
-visual identity workflow from FIA Harness, including Design DNA, divergent
-directions, section recipes and asset guidance.
+Most modules are intentionally light. Two are richer: UI keeps the complete
+visual identity workflow from FIA Harness (Design DNA, divergent directions,
+section recipes and asset guidance), and TypeSafe/Jev ships a reference plus the
+`fia typesafe review|eval` tooling for projects that use Jev.
 
 Each folder is a capability pack, not a phase in a bureaucracy. A project can use
 zero, one or several packs.

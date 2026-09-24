@@ -95,7 +95,7 @@ In scripts:
 
 ```bash
 fia init --modules ui,security
-fia module list          # all 13 packs
+fia module list          # all 14 packs
 fia module enable rag    # add one later
 ```
 
@@ -172,18 +172,22 @@ fia status
 | `fia module list\|enable\|disable\|info NAME` | Optional capability packs |
 | `fia ui setup\|status` | UI/UX pack (opt-in download, SHA-256 verified) |
 | `fia assets fetch\|manifest` | Verified asset packs |
+| `fia typesafe review\|eval` | Evaluate and run TypeSafe/Jev integrations (opt-in) |
 
 ## Core and optional modules
 
 The enforcement core is about 600 lines of dependency-free Python plus 30
 tests; it is the only thing `fia verify` runs.
 
-Thirteen capability packs ship alongside it, off by default. Enabling one copies
+Fourteen capability packs ship alongside it, off by default. Enabling one copies
 its docs to `docs/fia/<name>/` and never changes what `fia verify` checks. The
 UI/UX pack is intentionally complete (Design DNA, four divergent directions,
-section recipes, motion, accessibility, assets workflow). `ui` and `assets` are
-the only packs with code (~200 lines): explicit, opt-in, SHA-256-verified
-download commands.
+section recipes, motion, accessibility, assets workflow). `ui`, `assets` and
+`typesafe` are the only packs with code (~200 lines each): explicit, opt-in
+commands. `typesafe` adds a Jev reference plus `fia typesafe review` (static
+evaluation of a TypeSafe/Jev integration, with an optional Jev meta-evaluation)
+and `fia typesafe eval` (run typed questions); it needs `TYPESAFE_API_KEY` for the
+network commands.
 
 ## Trust and provenance
 

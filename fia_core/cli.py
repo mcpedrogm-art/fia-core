@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-from . import __version__, assets, modules, store, templates, ui
+from . import __version__, assets, modules, store, templates, typesafe, ui
 from .verify import status, verify
 
 
@@ -150,8 +150,27 @@ def main(argv=None):
     ui_setup.add_argument("-d", "--dir", default=".")
     ui_status = ui_sub.add_parser("status", help="Local UI/UX environment state (no network).")
     ui_status.add_argument("-d", "--dir", default=".")
+    typesafe_parser = sub.add_parser(
+        "typesafe", help="TypeSafe/Jev pack: evaluate and run structured questions.")
+    typesafe_sub = typesafe_parser.add_subparsers(dest="typesafe_action", required=True)
+    ts_review = typesafe_sub.add_parser(
+        "review", help="Evaluate a Jev spec and the project sources.")
+    ts_review.add_argument("-d", "--dir", default=".")
+    ts_review.add_argument("--spec", default=None, metavar="FILE",
+                           help="Spec path (default: .fia/typesafe.json, JEV.json, typesafe.json).")
+    ts_review.add_argument("--live", action="store_true",
+                           help="Also ask Jev to meta-evaluate the design (needs TYPESAFE_API_KEY).")
+    ts_review.add_argument("--json", action="store_true", help="Machine-readable report.")
+    ts_eval = typesafe_sub.add_parser(
+        "eval", help="Run the spec's questions against its state.")
+    ts_eval.add_argument("--spec", required=True, metavar="FILE", help="Spec path.")
+    ts_eval.add_argument("--state", default=None, metavar="FILE",
+                         help="Override the spec's state (JSON file or plain text).")
+    ts_eval.add_argument("--model", default=None, help="Model id (default: spec's or jev-latest).")
+    ts_eval.add_argument("--endpoint", default=None, help="API endpoint override.")
+    ts_eval.add_argument("--json", action="store_true", help="Print the raw response.")
     args = parser.parse_args(argv)
-    root = Path(args.dir)
+    root = Path(getattr(args, "dir", "."))
     if args.command == "init":
         try:
             return init(root, args.with_spec, selected_modules=args.modules,
@@ -210,6 +229,17 @@ def main(argv=None):
                                        url=args.url)
             return ui.cmd_ui_status(Path(args.dir))
         except assets.AssetError as error:
+            print(str(error), file=sys.stderr)
+            return 1
+    if args.command == "typesafe":
+        try:
+            if args.typesafe_action == "review":
+                return typesafe.cmd_typesafe_review(root, spec_path=args.spec,
+                                                     live=args.live, as_json=args.json)
+            return typesafe.cmd_typesafe_eval(args.spec, state_path=args.state,
+                                              model=args.model, endpoint=args.endpoint,
+                                              as_json=args.json)
+        except typesafe.TypeSafeError as error:
             print(str(error), file=sys.stderr)
             return 1
     return 2

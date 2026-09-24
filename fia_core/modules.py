@@ -23,6 +23,7 @@ MODULES = {
     "assets": {"label": "Assets", "level": "light", "purpose": "Verified asset manifests and downloads."},
     "prd": {"label": "PRD heuristics", "level": "light", "purpose": "Optional brief parsing and field suggestions."},
     "governance": {"label": "Governance", "level": "advanced", "purpose": "Receipts, seals, approvals and reproduction."},
+    "typesafe": {"label": "TypeSafe/Jev", "level": "full", "purpose": "Understand and evaluate Jev integrations: spec review, meta-evaluation and typed questions."},
 }
 
 

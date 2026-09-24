@@ -18,7 +18,7 @@ enable <name>` works the same from the source repo and from a real install
 fia-core
 └── fia_core/
     ├── cli.py, model.py, store.py, verify.py, modules.py   required verification loop
-    ├── assets.py, ui.py                                    opt-in pack tooling (never part of the gate)
+    ├── assets.py, ui.py, typesafe.py                       opt-in pack tooling (never part of the gate)
     └── modules/                                             optional packs (packaged, see pyproject package-data)
         ├── security/       light security checklist
         ├── evidence/       human-readable evidence index beyond TEST records
@@ -32,7 +32,8 @@ fia-core
         ├── multiagent/     roles, handoffs and shared context
         ├── assets/         verified asset manifests and downloads
         ├── prd/            optional brief parsing and field suggestions
-        └── governance/     advanced receipts, seals, approvals and reproduction
+        ├── governance/     advanced receipts, seals, approvals and reproduction
+        └── typesafe/       TypeSafe/Jev reference, spec rules and commands
 ```
 
 `fia module list|enable|disable|info <name>` records a project preference in
@@ -45,6 +46,14 @@ must do so opt-in, never by being merely enabled.
 The `ui` and `assets` packs are the first to use that allowance: `fia ui setup`
 and `fia assets fetch` download SHA-256-verified packs only when a human runs
 them, `fia ui status` works offline, and none of it adds checks to `verify()`.
+
+The `typesafe` pack uses the same allowance for a local decision tool: `fia
+typesafe review` statically evaluates a machine-readable Jev spec (`.fia/
+typesafe.json`, `JEV.json` or `typesafe.json`) and the project sources against
+the TypeSafe design rules, and `fia typesafe eval` runs the spec's typed questions
+against the System One endpoint. It is stdlib-only and opt-in; `review --live`
+and `eval` read `TYPESAFE_API_KEY` from the environment. None of this changes
+`verify()`.
 
 On the first interactive `fia init`, the same selection is offered as a numbered
 menu. In scripts and CI, use `fia init --modules ui,security`; omitting the option
